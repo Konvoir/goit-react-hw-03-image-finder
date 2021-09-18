@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import s from "./Searchbar.module.css"
 
 export class Searchbar extends Component {
     state = {
@@ -12,28 +13,31 @@ export class Searchbar extends Component {
 
     handleSubmit = e => {
         e.preventDefault()
+        if (this.state.query.trim() === "") { return; }
         this.props.onSubmit(this.state.query)
         this.setState({query: ""})
     }
 
     render() {
         return (
-            <header className="Searchbar">
-                <form className="SearchForm"
-                        onSubmit={this.handleSubmit}>
-                    <button type="submit" className="SearchForm-button">
-                    <span className="SearchForm-button-label">Search</span>
+            <header className={s.Searchbar}>
+                <form className={s.SearchForm}
+                    onSubmit={this.handleSubmit}
+                >
+                    
+                    <button type="submit" className={s.SearchFormButton}>
+                        <span className={s.SearchFormButtonLabel}>Search</span>
                     </button>
 
                     <input
-                    className="SearchForm-input"
-                    type="text"
-                    autocomplete="off"
-                    autofocus
-                    placeholder="Search images and photos"
-                    value={this.state.query}
-                    onChange={this.handleInputChange}
-                    
+                        className={s.SearchFormInput}
+                        type="text"
+                        name="query"
+                        autoComplete="off"
+                        autoFocus
+                        placeholder="Search images and photos"
+                        value={this.state.query}
+                        onChange={this.handleInputChange}
                     />
                 </form>
             </header>
@@ -43,5 +47,5 @@ export class Searchbar extends Component {
 };
 
 Searchbar.propTypes = {
-    onSubmit: PropTypes.func.isRequired
+    onSubmit: PropTypes.func.isRequired,
 };
