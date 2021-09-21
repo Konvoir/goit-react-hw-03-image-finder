@@ -88,7 +88,7 @@ class App extends Component {
     this.toggleModal();
   };
 
-  onButtonClick = ({ currentPage }) => {
+  onButtonClick = (currentPage) => {
     this.setState({ currentPage: currentPage + 1 });
   };
 

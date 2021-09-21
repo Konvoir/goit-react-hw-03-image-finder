@@ -8,7 +8,7 @@ export const ImageGalleryItem = ({
     tags,
     onClick
 }) => (
-    <li key={id} className={s.ImageGalleryItem}>
+    <li key={tags} className={s.ImageGalleryItem}>
         <img
             src={webformatURL}
             alt={tags}
