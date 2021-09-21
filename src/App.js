@@ -18,14 +18,17 @@ class App extends Component {
     isLoaded: false,
     error: null,
     showModal: false,
-    largeUrl: "",
+    largeImageURL: "",
     tag: "",
   };
 
   componentDidUpdate(prevProps, prevState) {
-    const { searchQuery, images } = this.state;
+    const { searchQuery, images, currentPage } = this.state;
 
-    if (prevState.searchQuery !== searchQuery) {
+    if (
+      prevState.searchQuery !== searchQuery ||
+      prevState.currentPage !== currentPage
+    ) {
       this.fetchImages();
     }
 
@@ -34,6 +37,10 @@ class App extends Component {
         top: document.documentElement.scrollHeight,
         behavior: "smooth",
       });
+    }
+
+    if (prevState.currentPage !== currentPage) {
+      this.fetchImages();
     }
   }
 
@@ -57,7 +64,7 @@ class App extends Component {
         if (images.length > 0) {
           this.setState((prevState) => ({
             images: [...prevState.images, ...images],
-            currentPage: prevState.currentPage + 1,
+
             error: false,
           }));
         } else {
@@ -76,13 +83,18 @@ class App extends Component {
 
   onImageClick = (e) => {
     this.setState({
-      largeUrl: e.target.largeImageURL,
+      largeImageURL: e.target.largeImageURL,
     });
     this.toggleModal();
   };
 
+  onButtonClick = ({ currentPage }) => {
+    this.setState({ currentPage: currentPage + 1 });
+  };
+
   render() {
-    const { isLoaded, images, error, showModal, largeUrl, tag } = this.state;
+    const { isLoaded, images, error, showModal, largeImageURL, tag } =
+      this.state;
 
     const shouldRenderMoreButton = images.length > 0 && !isLoaded;
 
@@ -106,11 +118,11 @@ class App extends Component {
           <Loader type="Puff" color="#00BFFF" height={100} width={100} />
         )}
 
-        {shouldRenderMoreButton && <Button onClick={this.APIpixabay} />}
+        {shouldRenderMoreButton && <Button onClick={this.onButtonClick} />}
 
         {showModal && (
           <Modal onClose={this.toggleModal}>
-            <img src={largeUrl} alt={tag} />
+            <img src={largeImageURL} alt={tag} />
           </Modal>
         )}
       </div>
