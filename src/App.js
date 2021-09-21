@@ -38,10 +38,6 @@ class App extends Component {
         behavior: "smooth",
       });
     }
-
-    if (prevState.currentPage !== currentPage) {
-      this.fetchImages();
-    }
   }
 
   onChangeQuery = (query) => {
@@ -88,8 +84,9 @@ class App extends Component {
     this.toggleModal();
   };
 
-  onButtonClick = (currentPage) => {
-    this.setState({ currentPage: currentPage + 1 });
+  onButtonClick = () => {
+    this.setState({ currentPage: this.state.currentPage + 1 });
+    this.fetchImages();
   };
 
   render() {
