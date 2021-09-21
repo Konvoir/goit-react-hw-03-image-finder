@@ -81,9 +81,9 @@ class App extends Component {
     }));
   };
 
-  onImageClick = (e) => {
+  onImageClick = (largeImageURL) => {
     this.setState({
-      largeImageURL: e.target.largeImageURL,
+      largeImageURL: largeImageURL,
     });
     this.toggleModal();
   };
