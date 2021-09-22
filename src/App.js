@@ -85,7 +85,7 @@ class App extends Component {
   };
 
   onButtonClick = () => {
-    this.setState({ currentPage: this.state.currentPage + 1 });
+    this.setState(({ currentPage }) => ({ currentPage: currentPage + 1 }));
     this.fetchImages();
   };
 
