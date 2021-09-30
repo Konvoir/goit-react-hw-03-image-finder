@@ -127,6 +127,6 @@ class App extends Component {
   }
 }
 
-App.propTypes = {};
+// App.propTypes = {};
 
 export default App;
